@@ -11,7 +11,7 @@ public class Board {
 	
 	public void makeStartBoard() {
 		//TODO set starting positions of all pieces
-		grid[0][0] = new Spot(0, 0, new Rook(0, 0)); //this is kinda a mess rn but itll change
+		//grid[0][0] = new Spot(0, 0, new Rook(0, 0)); //this is kinda a mess rn but itll change
 		grid[0][1] = new Spot(0, 1, new Knight(0, 1));
 		//etc etc
 	}
