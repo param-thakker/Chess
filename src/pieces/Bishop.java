@@ -16,17 +16,18 @@ public class Bishop extends ChessPiece{
 	public String getPieceName() {
 		
 		if (pieceColor==0) {
-			this.pieceName="w" + this.pieceName;
+			this.pieceName="wB";
 		}
 		else {
-			this.pieceName="b" + this.pieceName;
+			this.pieceName="bB";
 		}
 		return this.pieceName;
 	}
 
 	@Override
+	//TODO currently can move through units lol
 	public boolean validMove(Board board, Spot startPosition, Spot endPosition) {
-		if (endPosition!=null && endPosition.getPiece().getColor()==this.getColor()) {   
+		if (!endPosition.isEmpty() && endPosition.getPiece().getColor()==this.getColor()) {
 			return false;
 		}
 		int yChange=Math.abs(endPosition.getYCoordinate()-startPosition.getYCoordinate());

@@ -24,6 +24,7 @@ public class Spot {
         this.piece = p; 
     } 
 
+    public boolean isEmpty() { return piece == null;}
 
     public int getXCoordinate() 
 

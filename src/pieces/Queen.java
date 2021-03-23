@@ -16,17 +16,18 @@ public class Queen extends ChessPiece{
 	public String getPieceName() {
 		
 		if (pieceColor==0) {
-			this.pieceName="w" + this.pieceName;
+			this.pieceName="wQ";
 		}
 		else {
-			this.pieceName="b" + this.pieceName;
+			this.pieceName="bQ";
 		}
 		return this.pieceName;
 	}
 
 	@Override
+	//TODO queens can currently move through units lol (for ex on the first turn you can capture black queen as white queen)
 	public boolean validMove(Board board, Spot startPosition, Spot endPosition) {
-		if (endPosition!=null && endPosition.getPiece().getColor()==this.getColor()) {   
+		if (!endPosition.isEmpty() && endPosition.getPiece().getColor()==this.getColor()) {
 			return false;
 		}
 		int yChange=Math.abs(endPosition.getYCoordinate()-startPosition.getYCoordinate());

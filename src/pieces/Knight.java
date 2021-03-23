@@ -15,23 +15,24 @@ public class Knight extends ChessPiece{
 	@Override
 	public String getPieceName() {
 		if (pieceColor==0) {
-			this.pieceName="w" + this.pieceName;
+			this.pieceName="wN";
 		}
 		else {
-			this.pieceName="b" + this.pieceName;
+			this.pieceName="bN";
 		}
 		return this.pieceName;
 	}
 
 	@Override
 	public boolean validMove(Board board, Spot startPosition, Spot endPosition) {
-		if (endPosition!=null && endPosition.getPiece().getColor()==this.getColor()) {   
+		if (!endPosition.isEmpty() && endPosition.getPiece().getColor()==this.getColor()) {
 			return false;
 		}
+		//L shape
 		int yChange=Math.abs(endPosition.getYCoordinate()-startPosition.getYCoordinate());
 		int xChange=Math.abs(endPosition.getXCoordinate()-startPosition.getXCoordinate());
-
-        return xChange * yChange == 2;
+		//3.23 DOESNT WORK PROPERLY
+        return (xChange == 2 && yChange == 1) || (xChange == 1 && yChange == 2);
 		
 	}
 

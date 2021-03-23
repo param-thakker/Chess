@@ -2,17 +2,25 @@ package chess;
 
 import java.util.*;
 import java.io.*;
+import pieces.ChessPiece;
+
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
+
+import static pieces.King.castledK;
+import static pieces.King.castledQ;
 
 
 public class Chess {
 	public static Board chessBoard;
-	static boolean whiteTurn=true;
+	static boolean whiteTurn = true;
 
 	public static void main(String[] args) {
 		setUpGame();
-		Scanner sc=new Scanner(System.in);
-		String input="";
-		while (true) {
+		Scanner sc = new Scanner(System.in);
+		String input = "";
+
+		//TODO Check for checkmate or stalemate
+		while (true) { //while not checkmate
 			if (whiteTurn) {
 				System.out.println();
 				System.out.print("White's move: ");
@@ -21,51 +29,20 @@ public class Chess {
 				System.out.println();
 				System.out.print("Black's move: ");
 			}
-			input=sc.nextLine();
+			input = sc.nextLine();
 			newBoardState(input);
 		}
 		
 	}
 	public static void setUpGame() {
-		chessBoard=new Board();
-		String[][] board = new String[8][8];
-
-		int color = 0;
-		for (int i = 0; i < 8; i++){
-			for (int j = 0; j < 8; j++){
-				if (color==0){
-					board[i][j] = "   ";
-					color = 1;
-				}else{
-					board[i][j] = "## ";
-					color = 0;
-				}
-			}
-			color=color==0?1:0;
-		}	
-		for (int a = 0; a < 8; a++){
-			for (int b = 0; b < 8; b++){
-				if ( chessBoard.grid[a][b] != null){
-					board[a][b] = chessBoard.grid[a][b].getPiece().getPieceName() + " " ;
-				}
-			}
-		}
-		
-		 
-		System.out.println();
-		for (int a = 0; a < 8; a++){
-			for (int b = 0; b < 8; b++){
-				System.out.print(board[b][a]);
-			}
-			System.out.print(8-a);
-			System.out.println();
-		}
-		System.out.println(" a  b  c  d  e  f  g  h"); 
+		chessBoard = new Board();
+		chessBoard.drawBoard();
 	}
-	
+	//TODO Capturing & board updates **DONE**
+	//TODO weird board update bug due to piece naming **DONE**
 	public static void newBoardState(String input) {
-		String[] tokens=input.trim().toLowerCase().split("\\s+");
-		if (tokens.length==0) {
+		String[] tokens = input.trim().toLowerCase().split("\\s+");
+		if (tokens.length == 0 || tokens.length > 2) {
 			System.out.println("Illegal move, try again");
 			if (whiteTurn) {
 				System.out.println("White's move: ");
@@ -74,7 +51,7 @@ public class Chess {
 				System.out.println("Black's move: ");
 			}	
 		}
-		else if (tokens.length==1) {
+		else if (tokens.length == 1) {
 			if (tokens[0].equals("resign")) {
 				if (whiteTurn) {
 					System.out.println("Black wins");
@@ -84,11 +61,61 @@ public class Chess {
 				}
 				System.exit(1);
 			}
-			
-			
 		}
-		else if (tokens.length==2) {
-			
+		else { //correct inputs
+			//move tokens[0] to tokens[1] if a valid move
+			int xfrom = Math.abs('a'-tokens[0].charAt(0));
+			int yfrom = Math.abs(8-Character.getNumericValue(tokens[0].charAt(1)));
+			int xto = Math.abs('a'-tokens[1].charAt(0));
+			int yto = Math.abs(8-Character.getNumericValue(tokens[1].charAt(1)));
+			int currColor = whiteTurn ? 0 : 1;
+			Spot currSpot = chessBoard.grid[xfrom][yfrom];
+			Spot destSpot = chessBoard.grid[xto][yto];
+
+			if (currSpot.isEmpty()){
+				System.out.println("Illegal move, try again (current spot is empty)");
+			}else if(currSpot.getPiece().getColor() == currColor && currSpot.getPiece().validMove(chessBoard, currSpot, destSpot)){ //valid move
+				//CASTLING
+				if (castledK){
+					if (whiteTurn){
+						//move rook only as king moving is handled below
+						chessBoard.grid[5][7].setPiece(chessBoard.grid[7][7].getPiece());
+						chessBoard.grid[7][7].setPiece(null);
+					}else{
+						chessBoard.grid[5][0].setPiece(chessBoard.grid[7][0].getPiece());
+						chessBoard.grid[7][0].setPiece(null);
+					}
+					castledK = false;
+				}
+				if (castledQ){
+					if (whiteTurn){
+						//same thing move rook only
+						chessBoard.grid[3][7].setPiece(chessBoard.grid[0][7].getPiece());
+						chessBoard.grid[0][7].setPiece(null);
+					}else{
+						chessBoard.grid[3][0].setPiece(chessBoard.grid[0][0].getPiece());
+						chessBoard.grid[0][0].setPiece(null);
+					}
+					castledQ = false;
+				}
+				//remove piece from old Spot
+				System.out.println("selected piece and color: " + currSpot.getPiece().getPieceName() + " " + currSpot.getPiece().getColor());
+				ChessPiece mover = currSpot.getPiece();
+				currSpot.setPiece(null);
+
+				//check new Spot for enemy Piece, if so then remove
+				if (destSpot.getPiece() != null){
+					destSpot.piece.Dead();
+					System.out.println("\nBAM! " + destSpot.getPiece().getPieceName() + " was captured by " + mover.getPieceName() + " @ (" + xto + ", " + yto +")");
+				}
+				destSpot.setPiece(mover);
+				chessBoard.drawBoard();
+				whiteTurn = whiteTurn ? false : true; //switch colors
+			}else {
+				System.out.println("selected piece and color: " + currSpot.getPiece().getPieceName() + " " + currSpot.getPiece().getColor());
+				System.out.println("Illegal move, try again (illegal move)");
+			}
+
 		}
 	}
 	
