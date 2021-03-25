@@ -25,6 +25,15 @@ public class Knight extends ChessPiece{
 
 	@Override
 	public boolean validMove(Board board, Spot startPosition, Spot endPosition) {
+		
+		//L shape
+		int yChange=Math.abs(endPosition.getYCoordinate()-startPosition.getYCoordinate());
+		int xChange=Math.abs(endPosition.getXCoordinate()-startPosition.getXCoordinate());
+		//3.23 DOESNT WORK PROPERLY
+        return (xChange == 2 && yChange == 1) || (xChange == 1 && yChange == 2);
+		
+	}
+	public boolean validMoveWithoutCheck(Board board, Spot startPosition, Spot endPosition) {
 		if (!endPosition.isEmpty() && endPosition.getPiece().getColor()==this.getColor()) {
 			return false;
 		}

@@ -29,5 +29,6 @@ public abstract class ChessPiece {
 	public abstract String getPieceName();
 	
 	public abstract boolean validMove(Board board, Spot startPosition, Spot endPosition);
+	public abstract boolean validMoveWithoutCheck(Board board, Spot startPosition, Spot endPosition);
 	
 }

@@ -107,26 +107,19 @@ public class Board {
 	
 	public boolean isPathEmpty(Spot startPosition, Spot endPosition) {
 				
+		
+		String piece=startPosition.getPiece().getPieceName();
+		if (piece.equals("wK") || piece.equals("bK") || piece.equals("bN") || piece.equals("wN")) {
+			return true;
+		}
 				int yChange= endPosition.getYCoordinate()-startPosition.getYCoordinate();
 				int xChange=endPosition.getXCoordinate()-startPosition.getXCoordinate();
 				
 				int startBoxesX = startPosition.getXCoordinate();
 				int startBoxesY = startPosition.getYCoordinate();
 				
-				int yDirection=0;
-				int xDirection=0;
-				if (yChange>0) {
-					yDirection=1;
-				}
-				else if (yChange<0) {
-					yDirection=-1;
-				}
-				if (xChange>0) {
-					xDirection=1;
-				}
-				else if (xChange<0) {
-					xDirection=-1;
-				}
+				int yDirection=yChange>0?1:yChange<0?-1:0;
+				int xDirection=xChange>0?1:xChange<0?-1:0;
 
 				
 				

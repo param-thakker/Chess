@@ -24,18 +24,34 @@ public class Chess {
 			
 			if (whiteTurn) {
 				System.out.println();
-				boolean check=isKingInCheck(0);
+				boolean check=isKingInCheck(0,findKingPosition(0));
 				if (check) {
-					System.out.println("Check");
+					boolean checkmate=isCheckMate(0);
+					if (checkmate) {
+						System.out.println("Checkmate");
+						System.out.println("Black Wins");
+						System.exit(1);
+					}
+					else {
+						System.out.println("Check");
+					}
 				}
 				System.out.print("White's move: ");
 				
 			}
 			else {
 				System.out.println();
-				boolean check=isKingInCheck(1);
+				boolean check=isKingInCheck(1,findKingPosition(1));
 				if (check) {
-					System.out.println("Check");
+					boolean checkmate=isCheckMate(1);
+					if (checkmate) {
+						System.out.println("Checkmate");
+						System.out.println("White Wins");
+						System.exit(1);
+					}
+					else {
+						System.out.println("Check");
+					}
 				}
 				
 				System.out.print("Black's move: ");
@@ -87,7 +103,7 @@ public class Chess {
 
 			if (currSpot.isEmpty()){
 				System.out.println("Illegal move, try again (current spot is empty)");
-			}else if(currSpot.getPiece().getColor() == currColor && currSpot.getPiece().validMove(chessBoard, currSpot, destSpot) && chessBoard.isPathEmpty(currSpot, destSpot)  ) { 
+			}else if(currSpot.getPiece().getColor() == currColor && currSpot.getPiece().validMoveWithoutCheck(chessBoard, currSpot, destSpot) && chessBoard.isPathEmpty(currSpot, destSpot)  ) { 
 				//valid move
 				//CASTLING
 				if (castledK) {
@@ -133,18 +149,9 @@ public class Chess {
 
 		}
 	}
-	public static boolean isKingInCheck(int color) {
-		Spot kingPosition=null;
+   public static boolean isKingInCheck(int color, Spot kingPosition) {		
 		if (color==0) {   // White's move
-		for (int i=0;i<8;i++) {
-			for (int j=0;j<8;j++) {
-				if (chessBoard.grid[j][i].getPiece()!=null && chessBoard.grid[j][i].getPiece().getPieceName().equals("wK")) {
-					kingPosition=chessBoard.grid[j][i];
-					break;
-				}
-					
-			}
-		}
+	
 		for (int i=0;i<8;i++) {
 			for (int j=0;j<8;j++) {
 				if (chessBoard.grid[j][i].getPiece()!=null && chessBoard.grid[j][i].getPiece().getColor()==1 && chessBoard.grid[j][i].getPiece().validMove(chessBoard, chessBoard.grid[j][i], kingPosition ) && chessBoard.isPathEmpty(chessBoard.grid[j][i], kingPosition)) {
@@ -154,6 +161,54 @@ public class Chess {
 		}
 		}
 		else {   // Black's move
+			
+			for (int i=0;i<8;i++) {
+				for (int j=0;j<8;j++) {
+					if (chessBoard.grid[j][i].getPiece()!=null && chessBoard.grid[j][i].getPiece().getColor()==0 && chessBoard.grid[j][i].getPiece().validMove(chessBoard, chessBoard.grid[j][i], kingPosition ) && chessBoard.isPathEmpty(chessBoard.grid[j][i], kingPosition)) {
+						return true;
+					}
+				}
+			}
+	}
+		return false;
+	}
+	public static boolean isCheckMate(int color) {
+		Spot kingPosition=findKingPosition(color);
+	
+		int[] xDirection=new int[] {-1,0,1,-1,1,-1,0,1};
+		int[] yDirection=new int[] {-1,-1,-1,0,0,1,1,1};
+		
+		//if (isKingInCheck(color,kingPosition)) {
+			for (int i=0;i<xDirection.length;i++) {
+				int newX=kingPosition.getXCoordinate()+xDirection[i];
+				int newY=kingPosition.getYCoordinate()+yDirection[i];
+				if (newX<0 || newX>7 || newY<0 || newY>7) {
+					continue;
+				}
+				Spot endPosition=chessBoard.grid[newX][newY];
+				if (kingPosition.getPiece().validMoveWithoutCheck(chessBoard, kingPosition, endPosition)) {
+					if (!isKingInCheck(color,endPosition)) {
+						return false;
+				}
+			}
+		}
+
+		return true;
+	}
+	public static Spot findKingPosition(int color) {
+		Spot kingPosition=null;
+		if (color==0) {
+		for (int i=0;i<8;i++) {
+			for (int j=0;j<8;j++) {
+				if (chessBoard.grid[j][i].getPiece()!=null && chessBoard.grid[j][i].getPiece().getPieceName().equals("wK")) {
+					kingPosition=chessBoard.grid[j][i];
+					break;
+				}
+					
+			}
+		}
+		}
+		else if (color==1) {
 			for (int i=0;i<8;i++) {
 				for (int j=0;j<8;j++) {
 					if (chessBoard.grid[j][i].getPiece()!=null && chessBoard.grid[j][i].getPiece().getPieceName().equals("bK")) {
@@ -163,20 +218,10 @@ public class Chess {
 						
 				}
 			}
-			for (int i=0;i<8;i++) {
-				for (int j=0;j<8;j++) {
-					if (chessBoard.grid[j][i].getPiece()!=null && chessBoard.grid[j][i].getPiece().getColor()==0 && chessBoard.grid[j][i].getPiece().validMove(chessBoard, chessBoard.grid[j][i], kingPosition ) && chessBoard.isPathEmpty(chessBoard.grid[j][i], kingPosition)) {
-						return true;
-					}
-				}
-			}
-			
-		
-		
-		
+		}
+		return kingPosition;
 	}
-		return false;
-	}
+	
 	
 	
 	
