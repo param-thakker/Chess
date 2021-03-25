@@ -29,7 +29,7 @@ public class Pawn extends ChessPiece{
 		int yChange=endPosition.getYCoordinate()-startPosition.getYCoordinate();
 		int xChange=Math.abs(endPosition.getXCoordinate()-startPosition.getXCoordinate());
 		
-		if ((board.grid[endPosition.getXCoordinate()][endPosition.getYCoordinate()].getPiece()==null && ((yChange==1 && color == 1) || (yChange == -1 && color == 0)) && xChange==0) || (board.grid[endPosition.getXCoordinate()][endPosition.getYCoordinate()].getPiece()!=null && xChange == 1 && ((yChange==1 && color == 1) || (yChange == -1 && color == 0))) || (board.grid[endPosition.getXCoordinate()][endPosition.getYCoordinate()].getPiece()==null && this.first == true && yChange == 2 && xChange == 0)) {
+		if ((board.grid[endPosition.getXCoordinate()][endPosition.getYCoordinate()].getPiece()==null && ((yChange==1 && color == 1) || (yChange == -1 && color == 0)) && xChange==0) || (board.grid[endPosition.getXCoordinate()][endPosition.getYCoordinate()].getPiece()!=null && xChange == 1 && ((yChange==1 && color == 1) || (yChange == -1 && color == 0))) || (board.grid[endPosition.getXCoordinate()][endPosition.getYCoordinate()].getPiece()==null && this.first == true && ((yChange == 2 && color == 1) || (yChange == -2 && color == 0)) && xChange == 0)) {
 			return true;
 		}
 		return false;

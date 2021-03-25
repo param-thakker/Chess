@@ -36,16 +36,16 @@ public class King extends ChessPiece{
 			if (startPosition.getXCoordinate() == 4  && endPosition.getXCoordinate() == 6 && first && board.grid[7][7].getPiece().getPieceName().equals("wR") && board.grid[7][7].getPiece().first && board.grid[5][7].isEmpty() && board.grid[6][7].isEmpty()){
 				System.out.println("**white castle kings side**");
 				castledK = true;
+				first = false;
 				return true;
 			}
 			//queens side
 			if (startPosition.getXCoordinate() == 4 && endPosition.getXCoordinate() == 2 && first && board.grid[0][7].getPiece().getPieceName().equals("wR") && board.grid[0][7].getPiece().first && board.grid[1][7].isEmpty() && board.grid[2][7].isEmpty() && board.grid[3][7].isEmpty()){
 				System.out.println("**white castle queens side**");
 				castledQ = true;
+				first = false;
 				return true;
 			}
-
-			first = false;
 		}
 		//black castling
 		if (color == 1) {
@@ -53,15 +53,17 @@ public class King extends ChessPiece{
 			if (startPosition.getXCoordinate() == 4 && endPosition.getXCoordinate() == 6 && first && board.grid[7][0].getPiece().getPieceName().equals("bR") && board.grid[7][0].getPiece().first && board.grid[5][0].isEmpty() && board.grid[6][0].isEmpty()){
 				System.out.println("**black castle kings side**");
 				castledK = true;
+				first = false;
 				return true;
 			}
 			//queens side
 			if (startPosition.getXCoordinate() == 4 && endPosition.getXCoordinate() == 2 && first && board.grid[0][0].getPiece().getPieceName().equals("bR") && board.grid[0][0].getPiece().first && board.grid[1][0].isEmpty() && board.grid[2][0].isEmpty() && board.grid[3][0].isEmpty()){
 				System.out.println("**black castle queens side**");
 				castledQ = true;
+				first = false;
 				return true;
 			}
-			first = false;
+
 		}
 		int yChange=Math.abs(endPosition.getYCoordinate()-startPosition.getYCoordinate());
 		int xChange=Math.abs(endPosition.getXCoordinate()-startPosition.getXCoordinate());
@@ -82,16 +84,16 @@ public class King extends ChessPiece{
 			if (startPosition.getXCoordinate() == 4  && endPosition.getXCoordinate() == 6 && first && board.grid[7][7].getPiece().getPieceName().equals("wR") && board.grid[7][7].getPiece().first && board.grid[5][7].isEmpty() && board.grid[6][7].isEmpty()){
 				System.out.println("**white castle kings side**");
 				castledK = true;
+				first = false;
 				return true;
 			}
 			//queens side
 			if (startPosition.getXCoordinate() == 4 && endPosition.getXCoordinate() == 2 && first && board.grid[0][7].getPiece().getPieceName().equals("wR") && board.grid[0][7].getPiece().first && board.grid[1][7].isEmpty() && board.grid[2][7].isEmpty() && board.grid[3][7].isEmpty()){
 				System.out.println("**white castle queens side**");
 				castledQ = true;
+				first = false;
 				return true;
 			}
-
-			first = false;
 		}
 		//black castling
 		if (color == 1){
@@ -99,15 +101,16 @@ public class King extends ChessPiece{
 			if (startPosition.getXCoordinate() == 4 && endPosition.getXCoordinate() == 6 && first && board.grid[7][0].getPiece().getPieceName().equals("bR") && board.grid[7][0].getPiece().first && board.grid[5][0].isEmpty() && board.grid[6][0].isEmpty()){
 				System.out.println("**black castle kings side**");
 				castledK = true;
+				first = false;
 				return true;
 			}
 			//queens side
 			if (startPosition.getXCoordinate() == 4 && endPosition.getXCoordinate() == 2 && first && board.grid[0][0].getPiece().getPieceName().equals("bR") && board.grid[0][0].getPiece().first && board.grid[1][0].isEmpty() && board.grid[2][0].isEmpty() && board.grid[3][0].isEmpty()){
 				System.out.println("**black castle queens side**");
 				castledQ = true;
+				first = false;
 				return true;
 			}
-			first = false;
 		}
 		int yChange=Math.abs(endPosition.getYCoordinate()-startPosition.getYCoordinate());
 		int xChange=Math.abs(endPosition.getXCoordinate()-startPosition.getXCoordinate());

@@ -103,7 +103,7 @@ public class Chess {
 
 			if (currSpot.isEmpty()){
 				System.out.println("Illegal move, try again (current spot is empty)");
-			}else if(currSpot.getPiece().getColor() == currColor && currSpot.getPiece().validMoveWithoutCheck(chessBoard, currSpot, destSpot) && chessBoard.isPathEmpty(currSpot, destSpot)  ) { 
+			}else if(currSpot.getPiece().getColor() == currColor && currSpot.getPiece().validMoveWithoutCheck(chessBoard, currSpot, destSpot) && chessBoard.isPathEmpty(currSpot, destSpot)) {
 				//valid move
 				//CASTLING
 				if (castledK) {
@@ -142,7 +142,8 @@ public class Chess {
 				chessBoard.drawBoard();
 				whiteTurn = whiteTurn ? false : true; //switch colors
 			} else {
-				System.out.println("selected piece and color: " + currSpot.getPiece().getPieceName() + " " + currSpot.getPiece().getColor());
+				System.out.println("selected piece and color: " + currSpot.getPiece().getPieceName() + " " + (currSpot.getPiece().getColor() == 0 ? "white" : "black"));
+				System.out.println("attempted move: " + currSpot.getXCoordinate() + "," + currSpot.getYCoordinate() + " to " + destSpot.getXCoordinate() + "," + destSpot.getYCoordinate());
 				System.out.println("Illegal move, try again (illegal move)");
 				
 			}
