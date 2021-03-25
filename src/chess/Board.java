@@ -69,7 +69,7 @@ public class Board {
 		 *|wR|wN|wB|wQ|wK|wB|wN|wR| 7  */
 		
 	}
-	public void drawBoard(){
+	public void drawBoard() {
 		String[][] sboard = new String[8][8];
 
 		int color = 0;
@@ -104,5 +104,77 @@ public class Board {
 		}
 		System.out.println(" a  b  c  d  e  f  g  h");
 	}
+	
+	public boolean isPathEmpty(Spot startPosition, Spot endPosition) {
+				
+				int yChange= endPosition.getYCoordinate()-startPosition.getYCoordinate();
+				int xChange=endPosition.getXCoordinate()-startPosition.getXCoordinate();
+				
+				int startBoxesX = startPosition.getXCoordinate();
+				int startBoxesY = startPosition.getYCoordinate();
+				
+				int yDirection=0;
+				int xDirection=0;
+				if (yChange>0) {
+					yDirection=1;
+				}
+				else if (yChange<0) {
+					yDirection=-1;
+				}
+				if (xChange>0) {
+					xDirection=1;
+				}
+				else if (xChange<0) {
+					xDirection=-1;
+				}
+
+				
+				
+				if (yChange == 0) { // no change in Y direction, i.e look for only boxes in X direction
+					startBoxesX = startBoxesX + xDirection;
+					int numberofBoxes=Math.abs(xChange)-1;
+					int i=0;
+					while (i<numberofBoxes) {
+						if (grid[startBoxesX][startBoxesY].getPiece()!=null) {
+							return false;
+						}
+						startBoxesX=startBoxesX+xDirection;
+						i++;
+					}
+					
+				}
+				else if (xChange == 0) { // no change in X direction, i.e look for only boxes in Y direction
+				
+					startBoxesY = startBoxesY + yDirection;
+					int numberofBoxes=Math.abs(yChange)-1;
+					int i=0;
+					while (i<numberofBoxes) {
+						if (grid[startBoxesX][startBoxesY].getPiece()!=null) {
+							return false;
+						}
+						startBoxesY=startBoxesY+yDirection;
+						i++;
+					}
+					
+				}
+				
+				else { // look for boxes in both Y and X directions
+					startBoxesY = startBoxesY + yDirection;
+					startBoxesX = startBoxesX + xDirection;
+					int numberofBoxes=Math.abs(yChange)-1;
+					int i=0;
+					while (i<numberofBoxes) {
+						if (grid[startBoxesX][startBoxesY].getPiece()!=null) {
+							return false;
+						}
+						startBoxesY = startBoxesY + yDirection;
+						startBoxesX=startBoxesX+xDirection;
+						i++;
+					}
+				}
+				
+				return true;
+	}
+	
 
 }
