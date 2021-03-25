@@ -27,6 +27,13 @@ public class Rook extends ChessPiece{
 	@Override
 	//TODO currently can move through units lol
 	public boolean validMove(Board board, Spot startPosition, Spot endPosition) {
+		int yChange=Math.abs(endPosition.getYCoordinate()-startPosition.getYCoordinate());
+		int xChange=Math.abs(endPosition.getXCoordinate()-startPosition.getXCoordinate());
+		
+		return ((xChange == 0 && yChange != 0) || (xChange != 0 && yChange == 0));
+		
+	}
+	public boolean validMoveWithoutCheck(Board board, Spot startPosition, Spot endPosition) {
 		if (!endPosition.isEmpty() && endPosition.getPiece().getColor()==this.getColor()) {
 			return false;
 		}
@@ -36,5 +43,6 @@ public class Rook extends ChessPiece{
 		return ((xChange == 0 && yChange != 0) || (xChange != 0 && yChange == 0));
 		
 	}
+
 
 }

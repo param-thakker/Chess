@@ -27,14 +27,21 @@ public class Bishop extends ChessPiece{
 	@Override
 	//TODO currently can move through units lol
 	public boolean validMove(Board board, Spot startPosition, Spot endPosition) {
-		if (!endPosition.isEmpty() && endPosition.getPiece().getColor()==this.getColor()) {
-			return false;
-		}
 		int yChange=Math.abs(endPosition.getYCoordinate()-startPosition.getYCoordinate());
 		int xChange=Math.abs(endPosition.getXCoordinate()-startPosition.getXCoordinate());
 		
 		return yChange==xChange;
 		
 	}
+	public boolean validMoveWithoutCheck(Board board, Spot startPosition, Spot endPosition) {
+			if (!endPosition.isEmpty() && endPosition.getPiece().getColor()==this.getColor()) {
+				return false;
+			}
+			int yChange=Math.abs(endPosition.getYCoordinate()-startPosition.getYCoordinate());
+			int xChange=Math.abs(endPosition.getXCoordinate()-startPosition.getXCoordinate());
+			
+			return yChange==xChange;
+			
+		}
 
 }
