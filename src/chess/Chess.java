@@ -19,7 +19,7 @@ public class Chess {
 		Scanner sc = new Scanner(System.in);
 		String input = "";
 
-		//TODO Check for checkmate or stalemate
+		//TODO Check for checkmate
 		while (true) { //while not checkmate
 			
 			if (whiteTurn) {
