@@ -193,8 +193,11 @@ public class Chess {
 				}
 			}
 		}
+			if (!validMoves(color)) {
+				return true;
+			}
 
-		return true;
+		return false;
 	}
 	public static Spot findKingPosition(int color) {
 		Spot kingPosition=null;
@@ -221,6 +224,44 @@ public class Chess {
 			}
 		}
 		return kingPosition;
+	}
+	
+	public static boolean validMoves(int color) {
+		String pieceToExclude="";
+		if (color==0) {
+			pieceToExclude="wK";
+		}
+		else {
+			pieceToExclude="bK";
+		}
+		for (int i=0;i<8;i++) {
+			for (int j=0;j<8;j++) {
+				if (chessBoard.grid[j][i].getPiece()!=null && chessBoard.grid[j][i].getPiece().getColor()==color && !chessBoard.grid[j][i].getPiece().getPieceName().equals(pieceToExclude)) {
+					for (int a=0;a<8;a++) {
+						for (int b=0;b<8;b++) {
+							Spot newPosition=chessBoard.grid[b][a];
+							ChessPiece newPositionPiece=newPosition.getPiece();
+							ChessPiece current=chessBoard.grid[j][i].getPiece();
+							if (chessBoard.grid[j][i].getPiece().validMoveWithoutCheck(chessBoard, chessBoard.grid[j][i], newPosition) ) {
+								
+								
+								newPosition.setPiece(current);
+								chessBoard.grid[j][i].setPiece(null);
+								if (!isKingInCheck(color,findKingPosition(color))) {
+									chessBoard.grid[j][i].setPiece(current);
+									newPosition.setPiece(newPositionPiece);
+									return true;
+								}
+							}
+							chessBoard.grid[j][i].setPiece(current);
+							newPosition.setPiece(newPositionPiece);
+						}
+					}
+				}
+			}
+		}
+		
+		return false;
 	}
 	
 	
