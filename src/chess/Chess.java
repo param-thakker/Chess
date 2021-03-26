@@ -2,7 +2,7 @@ package chess;
 
 import java.util.*;
 import java.io.*;
-import pieces.ChessPiece;
+import pieces.*;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 
@@ -104,6 +104,7 @@ public class Chess {
 			if (currSpot.isEmpty()){
 				System.out.println("Illegal move, try again (current spot is empty)");
 			}else if(currSpot.getPiece().getColor() == currColor && currSpot.getPiece().validMoveWithoutCheck(chessBoard, currSpot, destSpot) && chessBoard.isPathEmpty(currSpot, destSpot)) {
+				boolean pawnPromo = false;
 				//valid move
 				//CASTLING
 				if (castledK) {
@@ -131,14 +132,29 @@ public class Chess {
 				//remove piece from old Spot
 				System.out.println("selected piece and color: " + currSpot.getPiece().getPieceName() + " " + currSpot.getPiece().getColor());
 				ChessPiece mover = currSpot.getPiece();
+
+				if (mover.getPieceName().substring(1).equals("p")){ //pawn promo
+					pawnPromo = true;
+					if (whiteTurn){
+						if (currSpot.getYCoordinate() == 1){
+							pawnPromotion(currSpot, destSpot, tokens[2].charAt(0), 0);
+							System.out.println("white's pawn has been promoted to " + tokens[2]);
+						}
+					}else{
+						if (currSpot.getYCoordinate() == 6){
+							pawnPromotion(currSpot, destSpot, tokens[2].charAt(0), 1);
+							System.out.println("black's pawn has been promoted to " + tokens[2]);
+						}
+					}
+				}
 				currSpot.setPiece(null);
 
 				//check new Spot for enemy Piece, if so then remove
-				if (destSpot.getPiece() != null){
+				if (destSpot.getPiece() != null && !pawnPromo){
 					destSpot.piece.Dead();
 					System.out.println("\nBAM! " + destSpot.getPiece().getPieceName() + " was captured by " + mover.getPieceName() + " @ (" + xto + ", " + yto +")");
 				}
-				destSpot.setPiece(mover);
+				if (!pawnPromo){destSpot.setPiece(mover);}
 				chessBoard.drawBoard();
 				whiteTurn = whiteTurn ? false : true; //switch colors
 			} else {
@@ -150,7 +166,22 @@ public class Chess {
 
 		}
 	}
-   public static boolean isKingInCheck(int color, Spot kingPosition) {		
+	public static void pawnPromotion(Spot curr, Spot dest, char promo, int color){
+		switch (promo){
+			case 'R':
+				dest.setPiece(new Rook(color));
+				break;
+			case 'N':
+				dest.setPiece(new Knight(color));
+				break;
+			case 'B':
+				dest.setPiece(new Bishop(color));
+				break;
+			default: //dont have to do case Q because default covers that
+				dest.setPiece(new Queen(color));
+		}
+	}
+   	public static boolean isKingInCheck(int color, Spot kingPosition) {
 		if (color==0) {   // White's move
 	
 		for (int i=0;i<8;i++) {
