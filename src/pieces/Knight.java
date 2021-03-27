@@ -6,11 +6,19 @@ public class Knight extends ChessPiece{
 	
 	String pieceName="N";
 	int pieceColor=0;
+	int previousChange = 0;
 	public Knight(int color) {
 		this.setColor(color);
 		this.pieceColor=color;
 	}
-	
+	public Knight(int color, int previousChange) {
+		this.setColor(color);
+		this.pieceColor=color;
+		this.previousChange = previousChange;
+	}
+	public int getPreviousChange() {
+		return previousChange;
+	}
 
 	@Override
 	public String getPieceName() {
@@ -29,19 +37,27 @@ public class Knight extends ChessPiece{
 		//L shape
 		int yChange=Math.abs(endPosition.getYCoordinate()-startPosition.getYCoordinate());
 		int xChange=Math.abs(endPosition.getXCoordinate()-startPosition.getXCoordinate());
-		//3.23 DOESNT WORK PROPERLY
-        return (xChange == 2 && yChange == 1) || (xChange == 1 && yChange == 2);
+
+		if ((xChange == 2 && yChange == 1) || (xChange == 1 && yChange == 2)){
+			previousChange = yChange;
+			return true;
+		}
+		return false;
 		
 	}
 	public boolean validMoveWithoutCheck(Board board, Spot startPosition, Spot endPosition) {
 		if (!endPosition.isEmpty() && endPosition.getPiece().getColor()==this.getColor()) {
 			return false;
 		}
-		//L shape
+
 		int yChange=Math.abs(endPosition.getYCoordinate()-startPosition.getYCoordinate());
 		int xChange=Math.abs(endPosition.getXCoordinate()-startPosition.getXCoordinate());
-		//3.23 DOESNT WORK PROPERLY
-        return (xChange == 2 && yChange == 1) || (xChange == 1 && yChange == 2);
+
+		if ((xChange == 2 && yChange == 1) || (xChange == 1 && yChange == 2)){
+			previousChange = yChange;
+			return true;
+		}
+        return false;
 		
 	}
 

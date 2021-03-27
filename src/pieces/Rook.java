@@ -6,11 +6,20 @@ public class Rook extends ChessPiece{
 	
 	String pieceName="R";
 	int pieceColor=0;
+	int previousChange=0;
 	public Rook(int color) {
 		this.setColor(color);
 		this.pieceColor=color;
 	}
-	
+
+	public Rook(int color, int prevChange){
+		this.setColor(color);
+		this.pieceColor=color;
+		this.previousChange = prevChange;
+	}
+	public int getPreviousChange() {
+		return previousChange;
+	}
 
 	@Override
 	public String getPieceName() {
@@ -27,10 +36,15 @@ public class Rook extends ChessPiece{
 	@Override
 	//TODO currently can move through units lol
 	public boolean validMove(Board board, Spot startPosition, Spot endPosition) {
+
 		int yChange=Math.abs(endPosition.getYCoordinate()-startPosition.getYCoordinate());
 		int xChange=Math.abs(endPosition.getXCoordinate()-startPosition.getXCoordinate());
-		
-		return ((xChange == 0 && yChange != 0) || (xChange != 0 && yChange == 0));
+
+		if ((xChange == 0 && yChange != 0) || (xChange != 0 && yChange == 0)){
+			previousChange = yChange;
+			return true;
+		}
+		return false;
 		
 	}
 	public boolean validMoveWithoutCheck(Board board, Spot startPosition, Spot endPosition) {
@@ -39,8 +53,12 @@ public class Rook extends ChessPiece{
 		}
 		int yChange=Math.abs(endPosition.getYCoordinate()-startPosition.getYCoordinate());
 		int xChange=Math.abs(endPosition.getXCoordinate()-startPosition.getXCoordinate());
-		
-		return ((xChange == 0 && yChange != 0) || (xChange != 0 && yChange == 0));
+
+		if ((xChange == 0 && yChange != 0) || (xChange != 0 && yChange == 0)){
+			previousChange = yChange;
+			return true;
+		}
+		return false;
 		
 	}
 

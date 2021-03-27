@@ -8,11 +8,21 @@ public class King extends ChessPiece{
 	public static boolean castledQ = false;
 	public static boolean castledK = false;
 	int pieceColor=0;
+	int previousChange=0;
 	public King(int color) {
 		this.setColor(color);
 		this.pieceColor=color;
 	}
-	
+
+	public King(int color, int previousChange) {
+		this.setColor(color);
+		this.pieceColor=color;
+		this.previousChange = previousChange;
+	}
+
+	public int getPreviousChange() {
+		return previousChange;
+	}
 
 	@Override
 	public String getPieceName() {
@@ -67,8 +77,12 @@ public class King extends ChessPiece{
 		}
 		int yChange=Math.abs(endPosition.getYCoordinate()-startPosition.getYCoordinate());
 		int xChange=Math.abs(endPosition.getXCoordinate()-startPosition.getXCoordinate());
-		
-		return ((xChange == 1 && yChange ==1) || (xChange ==1 && yChange == 0) || (xChange ==0 && yChange == 1) );
+
+		if ((xChange == 1 && yChange ==1) || (xChange ==1 && yChange == 0) || (xChange ==0 && yChange == 1)){
+			previousChange = yChange;
+			return true;
+		}
+		return false;
 		
 	}
 
@@ -114,8 +128,12 @@ public class King extends ChessPiece{
 		}
 		int yChange=Math.abs(endPosition.getYCoordinate()-startPosition.getYCoordinate());
 		int xChange=Math.abs(endPosition.getXCoordinate()-startPosition.getXCoordinate());
-		
-		return ((xChange == 1 && yChange ==1) || (xChange ==1 && yChange == 0) || (xChange ==0 && yChange == 1) );
+
+		if ((xChange == 1 && yChange ==1) || (xChange ==1 && yChange == 0) || (xChange ==0 && yChange == 1)){
+			previousChange = yChange;
+			return true;
+		}
+		return false;
 	}
 
 }

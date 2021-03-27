@@ -8,6 +8,7 @@ public abstract class ChessPiece {
 	int x;
 	int y;
 	boolean first=true;
+	int previousChange;
 	
 	/*public ChessPiece(int x, int y) {
 		this.x = x;
@@ -30,5 +31,6 @@ public abstract class ChessPiece {
 	
 	public abstract boolean validMove(Board board, Spot startPosition, Spot endPosition);
 	public abstract boolean validMoveWithoutCheck(Board board, Spot startPosition, Spot endPosition);
-	
+
+	public abstract int getPreviousChange();
 }
