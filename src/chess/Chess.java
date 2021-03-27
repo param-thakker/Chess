@@ -104,6 +104,16 @@ public class Chess {
 			if (currSpot.isEmpty()){
 				System.out.println("Illegal move, try again (current spot is empty)");
 			}else if(currSpot.getPiece().getColor() == currColor && currSpot.getPiece().validMoveWithoutCheck(chessBoard, currSpot, destSpot) && chessBoard.isPathEmpty(currSpot, destSpot)) {
+				if (currSpot.getPiece().getPieceName().equals("bK") || currSpot.getPiece().getPieceName().equals("wK")) {
+					if (whiteTurn && isKingInCheck(0,destSpot)) {
+						System.out.println("Illegal move, King will be in check in the new spot");
+						return;
+					}
+					else if (!whiteTurn && isKingInCheck(1,destSpot)) {
+						System.out.println("Illegal move, King will be in check in the new spot");
+						return;
+					}
+				}
 				boolean pawnPromo = false;
 				//valid move
 				//CASTLING
@@ -130,10 +140,15 @@ public class Chess {
 					castledQ = false;
 				}
 				//remove piece from old Spot
+			
 				System.out.println("selected piece and color: " + currSpot.getPiece().getPieceName() + " " + currSpot.getPiece().getColor());
 				ChessPiece mover = currSpot.getPiece();
+				ChessPiece destPiece=destSpot.getPiece();
 
-				if (mover.getPieceName().substring(1).equals("p")){ //pawn promo potential
+
+				if (mover.getPieceName().substring(1).equals("p")) { //pawn promo potential
+
+				
 					if (whiteTurn){
 						if (currSpot.getYCoordinate() == 1){
 							pawnPromotion(currSpot, destSpot, tokens[2].charAt(0), 0);
@@ -155,7 +170,21 @@ public class Chess {
 					destSpot.piece.Dead();
 					System.out.println("\nBAM! " + destSpot.getPiece().getPieceName() + " was captured by " + mover.getPieceName() + " @ (" + xto + ", " + yto +")");
 				}
-				if (!pawnPromo){destSpot.setPiece(mover);}
+				if (!pawnPromo){
+					destSpot.setPiece(mover);
+					if (whiteTurn && isKingInCheck(0,findKingPosition(0))) {
+						System.out.println("Illegal Move, King is/will be in check");
+						currSpot.setPiece(mover);
+						destSpot.setPiece(destPiece);
+						return;
+					}
+					else if (!whiteTurn && isKingInCheck(1,findKingPosition(1))) {
+						System.out.println("Illegal Move, King is/will be in check");
+						currSpot.setPiece(mover);
+						destSpot.setPiece(destPiece);
+						return;
+					}
+				}
 				chessBoard.drawBoard();
 				whiteTurn = whiteTurn ? false : true; //switch colors
 			} else {
