@@ -6,6 +6,14 @@ import pieces.Knight;
 import pieces.Pawn;
 import pieces.Queen;
 
+/**
+ * The Board class has the entire layout of the chessBoard with the pieces in their designated Spots
+ *
+ * @author Param Thakker
+ * @author Jonathan Lu
+ *
+ */
+ 
 public class Board {
 	public Spot[][] grid;
 	
@@ -14,6 +22,10 @@ public class Board {
 		makeStartBoard();
 	}
 	
+	/**
+	 *  makeStartBoard method is used to place the pieces in their right spots at the beginning of the game.
+	 *  It takes no parameters and does not have a return type.
+	 */
 	public void makeStartBoard() {
 		//TODO set starting positions of all pieces
 		//black pieces
@@ -69,6 +81,12 @@ public class Board {
 		 *|wR|wN|wB|wQ|wK|wB|wN|wR| 7  */
 		
 	}
+	
+	
+	/**
+	 * drawBoard method is used to draw the chessBoard for the user to see with piece abbreviations
+	 * It takes no parameters and does not have a return type.
+	 */
 	public void drawBoard() {
 		String[][] sboard = new String[8][8];
 
@@ -105,6 +123,12 @@ public class Board {
 		System.out.println(" a  b  c  d  e  f  g  h");
 	}
 	
+	/**
+	 * isPathEmpty method is used to check if the path is clear for a particular move to be executed
+	 * @param startPosition    The spot where the piece is currently located
+	 * @param endPosition      The spot where the piece is attempting to move
+	 * @return                 True if the path is clear for the move to be made, false otherwise
+	 */
 	public boolean isPathEmpty(Spot startPosition, Spot endPosition) {
 				
 		

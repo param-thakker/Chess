@@ -1,7 +1,12 @@
 package pieces;
 import chess.Board;
 import chess.Spot;
-
+/**
+ * The Queen class is an extension of the ChessPiece class and creates a Queen Piece.
+ * @author Param Thakker
+ * @author Jonathan Lu
+ *
+ */
 public class Queen extends ChessPiece{
 	
 	String pieceName="Q";

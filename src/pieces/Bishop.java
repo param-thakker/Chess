@@ -1,7 +1,12 @@
 package pieces;
 import chess.Board;
 import chess.Spot;
-
+/**
+ * The Bishop class is an extension of the ChessPiece class and creates a Bishop Piece.
+ * @author Param Thakker
+ * @author Jonathan Lu
+ *
+ */
 public class Bishop extends ChessPiece{
 	
 	String pieceName="B";

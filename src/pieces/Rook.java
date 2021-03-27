@@ -2,6 +2,12 @@ package pieces;
 import chess.Board;
 import chess.Spot;
 
+/**
+ * The Rook class is an extension of the ChessPiece class and creates a Rook Piece.
+ * @author Param Thakker
+ * @author Jonathan Lu
+ *
+ */
 public class Rook extends ChessPiece{
 	
 	String pieceName="R";
