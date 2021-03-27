@@ -181,7 +181,6 @@ public class Chess {
 							pawnPromo = true;
 						}else if (currPawn.getEnPassant()){
 							enPassant = true;
-							System.out.println("\nBAM! " + chessBoard.grid[xto][yto+1].getPiece().getPieceName() + " was enPassant captured by " + mover.getPieceName() + " @ (" + xto + ", " + (yto-1) +")");
 							//System.out.println("\nBAM! " + chessBoard.grid[xto][yto+1].getPiece().getPieceName() + " was enPassant captured by " + mover.getPieceName() + " @ (" + xto + ", " + (yto-1) +")");
 							chessBoard.grid[xto][yto+1].setPiece(null);
 							destSpot.setPiece(mover);
@@ -194,7 +193,6 @@ public class Chess {
 							pawnPromo = true;
 						}else if (currPawn.getEnPassant()){
 							enPassant = true;
-							System.out.println("\nBAM! " +chessBoard.grid[xto][yto-1].getPiece().getPieceName() + " was enPassant captured by " + mover.getPieceName() + " @ (" + xto + ", " + (yto+1) +")");
 							//System.out.println("\nBAM! " +chessBoard.grid[xto][yto-1].getPiece().getPieceName() + " was enPassant captured by " + mover.getPieceName() + " @ (" + xto + ", " + (yto+1) +")");
 							chessBoard.grid[xto][yto-1].setPiece(null);
 							destSpot.setPiece(mover);
@@ -205,7 +203,6 @@ public class Chess {
 				if (!pawnPromo && !enPassant) {
 					//check new Spot for enemy Piece, if so then remove
 					if (destSpot.getPiece() != null){
-						System.out.println("\nBAM! " + destSpot.getPiece().getPieceName() + " was captured by " + mover.getPieceName() + " @ (" + xto + ", " + yto +")");
 						//System.out.println("\nBAM! " + destSpot.getPiece().getPieceName() + " was captured by " + mover.getPieceName() + " @ (" + xto + ", " + yto +")");
 					}
 					destSpot.setPiece(mover);
@@ -385,7 +382,7 @@ public class Chess {
 								newPosition.setPiece(current);
 								chessBoard.grid[j][i].setPiece(null);
 								if (!isKingInCheck(color,findKingPosition(color))) {
-									System.out.println("The piece is " + current.getPieceName() + " and move is " + newPosition.getXCoordinate() + "," + newPosition.getYCoordinate());
+									//System.out.println("The piece is " + current.getPieceName() + " and move is " + newPosition.getXCoordinate() + "," + newPosition.getYCoordinate());
 ;									chessBoard.grid[j][i].setPiece(current);
 									newPosition.setPiece(newPositionPiece);
 									return true;
