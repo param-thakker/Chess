@@ -9,15 +9,34 @@ import chess.Spot;
  *
  */
 public class Rook extends ChessPiece{
-	
+	/**
+	 * name of the piece, "R" for Rook used to display on the ChessBoard in conjunction with color
+	 */
 	String pieceName="R";
+	/**
+	 * the Rook's color (0 white 1 black)
+	 */
 	int pieceColor=0;
+	/**
+	 * the amount travelled vertically in the last move of the Rook
+	 */
 	int previousChange=0;
+
+	/**
+	 * Constructor with 1 color argument
+	 * @param color the color of the Rook
+	 */
 	public Rook(int color) {
 		this.setColor(color);
 		this.pieceColor=color;
 	}
 
+	/**
+	 * Constructor with 2 arguments
+	 *
+	 * @param color the color of the Rook
+	 * @param prevChange the amount travelled vertically in the last move of the Rook
+	 */
 	public Rook(int color, int prevChange){
 		this.setColor(color);
 		this.pieceColor=color;
@@ -40,7 +59,6 @@ public class Rook extends ChessPiece{
 	}
 
 	@Override
-	//TODO currently can move through units lol
 	public boolean validMove(Board board, Spot startPosition, Spot endPosition) {
 
 		int yChange=Math.abs(endPosition.getYCoordinate()-startPosition.getYCoordinate());
@@ -53,6 +71,7 @@ public class Rook extends ChessPiece{
 		return false;
 		
 	}
+	@Override
 	public boolean validMoveWithoutCheck(Board board, Spot startPosition, Spot endPosition) {
 		if (!endPosition.isEmpty() && endPosition.getPiece().getColor()==this.getColor()) {
 			return false;

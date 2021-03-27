@@ -8,14 +8,35 @@ import chess.Spot;
  *
  */
 public class Queen extends ChessPiece{
-	
+	/**
+	 * the pieceName of the Queen, used to display the text on the ChessBoard in conjunction with color
+	 */
 	String pieceName="Q";
+	/**
+	 * the color of the Queen (0 white 1 black)
+	 */
 	int pieceColor=0;
+	/**
+	 * the amount travelled vertically in the last move of the Queen
+	 */
 	int previousChange = 0;
+
+	/**
+	 * Constructor with 1 argument
+	 *
+	 * @param color the color of the Queen
+	 */
 	public Queen(int color) {
 		this.setColor(color);
 		this.pieceColor=color;
 	}
+
+	/**
+	 * Constructor with 2 arguments
+	 *
+	 * @param color the color of the Queen
+	 * @param prevChange the amount travelled vertically in the last move of the Queen
+	 */
 	public Queen(int color, int prevChange) {
 		this.setColor(color);
 		this.pieceColor=color;
@@ -37,7 +58,6 @@ public class Queen extends ChessPiece{
 	}
 
 	@Override
-	//TODO queens can currently move through units lol (for ex on the first turn you can capture black queen as white queen)
 	public boolean validMove(Board board, Spot startPosition, Spot endPosition) {
 		int yChange=Math.abs(endPosition.getYCoordinate()-startPosition.getYCoordinate());
 		int xChange=Math.abs(endPosition.getXCoordinate()-startPosition.getXCoordinate());
@@ -48,6 +68,7 @@ public class Queen extends ChessPiece{
 		}
 		return false;
 	}
+	@Override
 	public boolean validMoveWithoutCheck(Board board, Spot startPosition, Spot endPosition) {
 		if (!endPosition.isEmpty() && endPosition.getPiece().getColor()==this.getColor()) {
 			return false;

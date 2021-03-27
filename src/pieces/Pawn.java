@@ -8,14 +8,37 @@ import chess.Spot;
  *
  */
 public class Pawn extends ChessPiece{
+	/**
+	 * "p" the name used to display a pawn on the chessBoard along with color
+	 */
 	String pieceName="p";
+	/**
+	 * the pawn's color (0 white, 1 black)
+	 */
 	int pieceColor=0;
+	/**
+	 * the amount travelled vertically in the last move of the Pawn
+	 */
 	int previousChange=0;
+	/**
+	 * boolean enPassant stores whether or not an en passant move has been made
+	 */
 	boolean enPassant = false;
+	/**
+	 * Constructor with 1 argument
+	 *
+	 * @param color the color of the Pawn
+	 */
 	public Pawn(int color) {
 		this.setColor(color);
 		this.pieceColor=color;
 	}
+	/**
+	 * Constructor with 2 arguments
+	 *
+	 * @param color the color of the Pawn
+	 * @param previousChange the amount travelled vertically in the last move of the Pawn
+	 */
 	public Pawn(int color, int previousChange){
 		this.previousChange = previousChange;
 		this.setColor(color);
@@ -24,6 +47,12 @@ public class Pawn extends ChessPiece{
 	public int getPreviousChange() {
 		return previousChange;
 	}
+
+	/**
+	 * method to retrieve the current enPassant status of the pawn
+	 *
+	 * @return true if pawn is currently undergoing en passant, false otherwise
+	 */
 	public boolean getEnPassant(){
 		return enPassant;
 	}
@@ -40,8 +69,6 @@ public class Pawn extends ChessPiece{
 	}
 
 	@Override
-	//TODO pawns can currently move backwards **FIXED**
-	//TODO white pawns cant move up by 2 on first move but black can
 	public boolean validMove(Board board, Spot startPosition, Spot endPosition) {
 		enPassant = false;
 
@@ -71,6 +98,7 @@ public class Pawn extends ChessPiece{
 		}
 		return false;
 	}
+	@Override
 	public boolean validMoveWithoutCheck(Board board, Spot startPosition, Spot endPosition) {
 		enPassant = false;
 		if (!endPosition.isEmpty() && endPosition.getPiece().getColor()==this.getColor()) {  //same color piece

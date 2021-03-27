@@ -7,7 +7,7 @@ import pieces.Pawn;
 import pieces.Queen;
 
 /**
- * The Board class has the entire layout of the chessBoard with the pieces in their designated Spots
+ * The Board class has the entire layout of the chessBoard with the pieces in their designated Spots, effectively a grid of Spot instances
  *
  * @author Param Thakker
  * @author Jonathan Lu
@@ -15,8 +15,14 @@ import pieces.Queen;
  */
  
 public class Board {
+	/**
+	 * the 2D grid by which Spots are filled, representing the entire Chess Board
+	 */
 	public Spot[][] grid;
-	
+
+	/**
+	 * Constructor
+	 */
 	public Board() {
 		grid=new Spot[8][8];
 		makeStartBoard();

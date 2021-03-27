@@ -9,17 +9,41 @@ import chess.Spot;
  *
  */
 public class King extends ChessPiece{
-	
+	/**
+	 * "K" the name used to display a King on the ChessBoard in conjunction with color
+	 */
 	String pieceName="K";
+	/**
+	 * boolean castledQ to display if a King has been castled on Queens side
+	 */
 	public static boolean castledQ = false;
+	/**
+	 * boolean castledK to display if a King has been castled on Kings side
+	 */
 	public static boolean castledK = false;
+	/**
+	 * the King's color (0 white, 1 black)
+	 */
 	int pieceColor=0;
+	/**
+	 * the amount travelled vertically in the last move of the King
+	 */
 	int previousChange=0;
+	/**
+	 * Constructor with 2 arguments
+	 *
+	 * @param color the color of the King
+	 */
 	public King(int color) {
 		this.setColor(color);
 		this.pieceColor=color;
 	}
-
+	/**
+	 * Constructor with 2 arguments
+	 *
+	 * @param color the color of the King
+	 * @param previousChange the amount travelled vertically in the last move of the King
+	 */
 	public King(int color, int previousChange) {
 		this.setColor(color);
 		this.pieceColor=color;
@@ -43,8 +67,6 @@ public class King extends ChessPiece{
 	}
 
 	@Override
-	//TODO check if move puts king into Check, if so then not valid move
-	//TODO implement castling **DONE**
 	public boolean validMove(Board board, Spot startPosition, Spot endPosition) {
 		//white castling
 		if (color == 0){

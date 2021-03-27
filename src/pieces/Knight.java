@@ -10,14 +10,33 @@ import chess.Spot;
  */
 
 public class Knight extends ChessPiece {
-	
+	/**
+	 * "N" the name used to display a Knight on the ChessBoard in conjunction w/ color
+	 */
 	String pieceName="N";
+	/**
+	 * the Knight's color (0 white 1 black)
+	 */
 	int pieceColor=0;
+	/**
+	 * the amount travelled vertically in the last move of the Knight
+	 */
 	int previousChange = 0;
+	/**
+	 * Constructor with 1 argument
+	 *
+	 * @param color the color of the Knight
+	 */
 	public Knight(int color) {
 		this.setColor(color);
 		this.pieceColor=color;
 	}
+	/**
+	 * Constructor with 2 arguments
+	 *
+	 * @param color the color of the Knight
+	 * @param previousChange the amount travelled vertically in the last move of the Knight
+	 */
 	public Knight(int color, int previousChange) {
 		this.setColor(color);
 		this.pieceColor=color;
@@ -27,10 +46,6 @@ public class Knight extends ChessPiece {
 		return previousChange;
 	}
 
-	
-	/** getPieceName is used to return the piece abbreviation (wN or bN here)
-	 *  @return  The piece abbreviation
-	 */
 	
 	@Override
 	public String getPieceName() {
@@ -43,14 +58,6 @@ public class Knight extends ChessPiece {
 		return this.pieceName;
 	}
 
-
-	
-	/** validMove method is used to check if a piece is attempting a valid move
-	 * @param board          The chessboard
-	 * @param startPosition  The position where the piece is currently located
-	 * @param endPosition    The position where the piece is attempting to move
-	 * @return               True if the move is valid, false otherwise
-	 */
 	@Override
 	public boolean validMove(Board board, Spot startPosition, Spot endPosition) {
 		
@@ -65,12 +72,7 @@ public class Knight extends ChessPiece {
 		return false;
 		
 	}
-	/** 
-	 * @param board          The chessboard
-	 * @param startPosition  The position where the piece is currently located
-	 * @param endPosition    The position where the piece is attempting to move
-	 * @return               True if the move is valid, false otherwise
-	 */
+	@Override
 	public boolean validMoveWithoutCheck(Board board, Spot startPosition, Spot endPosition) {
 		if (!endPosition.isEmpty() && endPosition.getPiece().getColor()==this.getColor()) {
 			return false;

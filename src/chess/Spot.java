@@ -8,11 +8,26 @@ import pieces.ChessPiece;
  *
  */
 public class Spot {
+    /**
+     * the x-coordinate of this Spot
+     */
 	int x;
+    /**
+     * the y-coordinate of this Spot
+     */
 	int y;
+    /**
+     * the ChessPiece that resides in this Spot
+     */
 	ChessPiece piece;
-	
-	
+
+    /**
+     * Constructor with 2 arguments
+     *
+     * @param x the x-coordinate of the Spot
+     * @param y the y-coordinate of the Spot
+     * @param piece the ChessPiece that resides in this Spot
+     */
 	public Spot(int x, int y, ChessPiece piece) {
 		this.x = x;
 		this.y = y;
@@ -36,29 +51,29 @@ public class Spot {
 
     { 
         this.piece = p; 
-    } 
+    }
 
+    /**
+     * isEmpty method tells us if no ChessPiece exists at this Spot
+     *
+     * @return true if there is no ChessPiece, false otherwise
+     */
     public boolean isEmpty() { return piece == null;}
 
     /**
-     * getXCoordinate method is used to get x coordinate of a particular spot
+     * getXCoordinate method is used to get x coordinate of This Spot
+     *
      * @return The x coordinate of the spot
      */
     public int getXCoordinate() 
 
     { 
         return this.x; 
-    } 
-    
-
-    public void setXCoordinate(int x) 
-
-    { 
-        this.x = x; 
-    } 
+    }
 
     /**
-     * getYCoordinate method is used to get y coordinate of a particular spot
+     * getYCoordinate method is used to get y coordinate of this Spot
+     *
      * @return  The y coordinate of the spot
      */
     public int getYCoordinate() 
@@ -66,11 +81,5 @@ public class Spot {
     { 
         return this.y; 
     } 
-
-    public void setYCoordinate(int y) 
-
-    { 
-        this.y = y; 
-    }
 
 }

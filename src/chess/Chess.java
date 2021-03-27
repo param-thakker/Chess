@@ -14,8 +14,17 @@ import static pieces.King.castledQ;
  */
 
 public class Chess {
+	/**
+	 * Board the chessBoard by which the game is played
+	 */
 	public static Board chessBoard;
+	/**
+	 * boolean whiteTurn to display if it is white's turn or not
+	 */
 	static boolean whiteTurn = true;
+	/**
+	 * boolean askDraw to display whether a draw has been proposed by a player.
+	 */
 	static boolean askDraw=false;
 
 	public static void main(String[] args) {
@@ -80,6 +89,7 @@ public class Chess {
 	
 	/**
 	 * newBoardState method is used to draw the new state of the board after parsing the user input
+	 *
 	 * @param input	   The user input to parse
 	 * The method does not have a return type.
 	 */
@@ -172,7 +182,6 @@ public class Chess {
 						}else if (currPawn.getEnPassant()){
 							enPassant = true;
 							System.out.println("\nBAM! " + chessBoard.grid[xto][yto+1].getPiece().getPieceName() + " was enPassant captured by " + mover.getPieceName() + " @ (" + xto + ", " + (yto-1) +")");
-							chessBoard.grid[xto][yto+1].piece.Dead();
 							chessBoard.grid[xto][yto+1].setPiece(null);
 							destSpot.setPiece(mover);
 						}
@@ -185,7 +194,6 @@ public class Chess {
 						}else if (currPawn.getEnPassant()){
 							enPassant = true;
 							System.out.println("\nBAM! " +chessBoard.grid[xto][yto-1].getPiece().getPieceName() + " was enPassant captured by " + mover.getPieceName() + " @ (" + xto + ", " + (yto+1) +")");
-							chessBoard.grid[xto][yto-1].piece.Dead();
 							chessBoard.grid[xto][yto-1].setPiece(null);
 							destSpot.setPiece(mover);
 						}
@@ -196,7 +204,6 @@ public class Chess {
 					//check new Spot for enemy Piece, if so then remove
 					if (destSpot.getPiece() != null){
 						System.out.println("\nBAM! " + destSpot.getPiece().getPieceName() + " was captured by " + mover.getPieceName() + " @ (" + xto + ", " + yto +")");
-						destSpot.piece.Dead();
 					}
 					destSpot.setPiece(mover);
 					System.out.println("moved piece has previous y change of " + destSpot.getPiece().getPreviousChange());
@@ -234,7 +241,7 @@ public class Chess {
 	 * @param curr    The current Spot where the pawn is located
 	 * @param dest    The final Spot where the pawn is attempting to move
 	 * @param promo   The letter indicating what the promoted piece should be
-	 * @param color   The color (black/white) of the promoted piece
+	 * @param color   The color (black 1/white 0) of the promoted piece
 	 * The method does not have a return type.
 	 */
 	public static void pawnPromotion(Spot curr, Spot dest, char promo, int color){
@@ -253,9 +260,9 @@ public class Chess {
 		}
 	}
 	/**
-	 * isKingInCheck method is used to detect if the king is in check
+	 * isKingInCheck method is used to detect if the King is in check
 	 * 
-	 * @param color   The color (black/white) of the king
+	 * @param color   The color (black 1/white 0) of the king
 	 * @param kingPosition   The position which will be checked to see if king is/will be in check
 	 * @return    True if king is/will be in check, false otherwise
 	 */
@@ -282,10 +289,10 @@ public class Chess {
 	}
 		return false;
 	}
-   	/** isCheckMate method is used to detect if the king is checkmate
+   	/** isCheckMate method is used to detect if the King is in checkmate
    	 * 
-   	 * @param color   The color (black/white) of the king
-   	 * @return    True if the king is checkmate, false otherwise
+   	 * @param color   The color (0 white/1 black) of the king
+   	 * @return    True if the King is in checkmate, false otherwise
    	 */
 	public static boolean isCheckMate(int color) {
 		Spot kingPosition=findKingPosition(color);
@@ -317,7 +324,7 @@ public class Chess {
 	/** findKingPosition method is used to find the position of the king
 	 * 
 	 * @param color   The color (black/white) of the king
-	 * @return        The position of the king
+	 * @return        The Spot the King currently resides in
 	 */
 	public static Spot findKingPosition(int color) {
 		Spot kingPosition=null;
