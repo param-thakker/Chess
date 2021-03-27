@@ -13,6 +13,7 @@ import static pieces.King.castledQ;
 public class Chess {
 	public static Board chessBoard;
 	static boolean whiteTurn = true;
+	static boolean askDraw=false;
 
 	public static void main(String[] args) {
 		setUpGame();
@@ -90,6 +91,15 @@ public class Chess {
 				}
 				System.exit(1);
 			}
+			else if (tokens[0].equals("draw")) {
+				if (askDraw) {
+					System.out.println("Draw");
+					System.exit(1);
+				}
+				else {
+					System.out.println("Opponent has not asked for a draw yet");
+				}
+			}
 		}
 		else { //correct inputs
 			//move tokens[0] to tokens[1] if a valid move
@@ -104,16 +114,7 @@ public class Chess {
 			if (currSpot.isEmpty()){
 				System.out.println("Illegal move, try again (current spot is empty)");
 			}else if(currSpot.getPiece().getColor() == currColor && currSpot.getPiece().validMoveWithoutCheck(chessBoard, currSpot, destSpot) && chessBoard.isPathEmpty(currSpot, destSpot)) {
-				if (currSpot.getPiece().getPieceName().equals("bK") || currSpot.getPiece().getPieceName().equals("wK")) {
-					if (whiteTurn && isKingInCheck(0,destSpot)) {
-						System.out.println("Illegal move, King will be in check in the new spot");
-						return;
-					}
-					else if (!whiteTurn && isKingInCheck(1,destSpot)) {
-						System.out.println("Illegal move, King will be in check in the new spot");
-						return;
-					}
-				}
+				
 				boolean pawnPromo = false;
 				//valid move
 				//CASTLING
@@ -193,6 +194,9 @@ public class Chess {
 				System.out.println("attempted move: " + currSpot.getXCoordinate() + "," + currSpot.getYCoordinate() + " to " + destSpot.getXCoordinate() + "," + destSpot.getYCoordinate());
 				System.out.println("Illegal move, try again (illegal move)");
 				
+			}
+			if (tokens[2].equals("draw?")) {
+				askDraw=true;
 			}
 
 		}
