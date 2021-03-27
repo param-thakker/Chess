@@ -1,7 +1,12 @@
 package pieces;
 import chess.Board;
 import chess.Spot;
-
+/**
+ * The Pawn class is an extension of the ChessPiece class and creates a Pawn Piece.
+ * @author Param Thakker
+ * @author Jonathan Lu
+ *
+ */
 public class Pawn extends ChessPiece{
 	String pieceName="p";
 	int pieceColor=0;

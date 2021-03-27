@@ -2,6 +2,12 @@ package pieces;
 import chess.Board;
 import chess.Spot;
 
+/**
+ * The King class is an extension of the ChessPiece class and creates a King Piece.
+ * @author Param Thakker
+ * @author Jonathan Lu
+ *
+ */
 public class King extends ChessPiece{
 	
 	String pieceName="K";

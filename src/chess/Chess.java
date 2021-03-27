@@ -3,12 +3,15 @@ package chess;
 import java.util.*;
 import java.io.*;
 import pieces.*;
-
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
-
 import static pieces.King.castledK;
 import static pieces.King.castledQ;
 
+/**
+ * Chess class contains the main method and is where the game is running from and ends.
+ * @author Param Thakker
+ * @author Jonathan Lu 
+ */
 
 public class Chess {
 	public static Board chessBoard;
@@ -20,7 +23,7 @@ public class Chess {
 		Scanner sc = new Scanner(System.in);
 		String input = "";
 
-		//TODO Check for checkmate
+		
 		while (true) { //while not checkmate
 			
 			if (whiteTurn) {
@@ -64,12 +67,23 @@ public class Chess {
 		}
 		
 	}
+	
+	/**
+	 * setUpGame is a method which resets/sets up the chessboard and the pieces in the right place
+	 * It takes no parameters and does not have a return type.
+	 */
 	public static void setUpGame() {
 		chessBoard = new Board();
 		chessBoard.drawBoard();
 	}
-	//TODO Capturing & board updates **DONE**
-	//TODO weird board update bug due to piece naming **DONE**
+	
+	
+	/**
+	 * newBoardState method is used to draw the new state of the board after parsing the user input
+	 * @param input	   The user input to parse
+	 * The method does not have a return type.
+	 */
+	
 	public static void newBoardState(String input) {
 		String[] tokens = input.trim().toLowerCase().split("\\s+");
 		if (tokens.length == 0 || tokens.length > 3) {
@@ -215,6 +229,14 @@ public class Chess {
 
 		}
 	}
+	/**pawnPromotion method is used to promote the pawn to a new chosen piece (Queen by default)
+	 * 
+	 * @param curr    The current Spot where the pawn is located
+	 * @param dest    The final Spot where the pawn is attempting to move
+	 * @param promo   The letter indicating what the promoted piece should be
+	 * @param color   The color (black/white) of the promoted piece
+	 * The method does not have a return type.
+	 */
 	public static void pawnPromotion(Spot curr, Spot dest, char promo, int color){
 		switch (promo){
 			case 'R':
@@ -230,6 +252,13 @@ public class Chess {
 				dest.setPiece(new Queen(color));
 		}
 	}
+	/**
+	 * isKingInCheck method is used to detect if the king is in check
+	 * 
+	 * @param color   The color (black/white) of the king
+	 * @param kingPosition   The position which will be checked to see if king is/will be in check
+	 * @return    True if king is/will be in check, false otherwise
+	 */
    	public static boolean isKingInCheck(int color, Spot kingPosition) {
 		if (color==0) {   // White's move
 	
@@ -253,6 +282,11 @@ public class Chess {
 	}
 		return false;
 	}
+   	/** isCheckMate method is used to detect if the king is checkmate
+   	 * 
+   	 * @param color   The color (black/white) of the king
+   	 * @return    True if the king is checkmate, false otherwise
+   	 */
 	public static boolean isCheckMate(int color) {
 		Spot kingPosition=findKingPosition(color);
 	
@@ -279,6 +313,12 @@ public class Chess {
 
 		return false;
 	}
+	
+	/** findKingPosition method is used to find the position of the king
+	 * 
+	 * @param color   The color (black/white) of the king
+	 * @return        The position of the king
+	 */
 	public static Spot findKingPosition(int color) {
 		Spot kingPosition=null;
 		if (color==0) {
@@ -305,6 +345,12 @@ public class Chess {
 		}
 		return kingPosition;
 	}
+	
+	/** validMoves method is used to check if there are ways to block the king in check
+	 * 
+	 * @param color  The color (black/white) of the defending pieces
+	 * @return       True if there are ways to block the check, false otherwise
+	 */
 	
 	public static boolean validMoves(int color) {
 		String pieceToExclude="";
