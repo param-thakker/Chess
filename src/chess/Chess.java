@@ -181,12 +181,8 @@ public class Chess {
 							pawnPromo = true;
 						}else if (currPawn.getEnPassant()){
 							enPassant = true;
-<<<<<<< HEAD
 							System.out.println("\nBAM! " + chessBoard.grid[xto][yto+1].getPiece().getPieceName() + " was enPassant captured by " + mover.getPieceName() + " @ (" + xto + ", " + (yto-1) +")");
-=======
 							//System.out.println("\nBAM! " + chessBoard.grid[xto][yto+1].getPiece().getPieceName() + " was enPassant captured by " + mover.getPieceName() + " @ (" + xto + ", " + (yto-1) +")");
-							chessBoard.grid[xto][yto+1].piece.Dead();
->>>>>>> 9cc302bc9e42e3549ff5f8d507764243aee9a291
 							chessBoard.grid[xto][yto+1].setPiece(null);
 							destSpot.setPiece(mover);
 						}
@@ -198,12 +194,8 @@ public class Chess {
 							pawnPromo = true;
 						}else if (currPawn.getEnPassant()){
 							enPassant = true;
-<<<<<<< HEAD
 							System.out.println("\nBAM! " +chessBoard.grid[xto][yto-1].getPiece().getPieceName() + " was enPassant captured by " + mover.getPieceName() + " @ (" + xto + ", " + (yto+1) +")");
-=======
 							//System.out.println("\nBAM! " +chessBoard.grid[xto][yto-1].getPiece().getPieceName() + " was enPassant captured by " + mover.getPieceName() + " @ (" + xto + ", " + (yto+1) +")");
-							chessBoard.grid[xto][yto-1].piece.Dead();
->>>>>>> 9cc302bc9e42e3549ff5f8d507764243aee9a291
 							chessBoard.grid[xto][yto-1].setPiece(null);
 							destSpot.setPiece(mover);
 						}
@@ -213,12 +205,8 @@ public class Chess {
 				if (!pawnPromo && !enPassant) {
 					//check new Spot for enemy Piece, if so then remove
 					if (destSpot.getPiece() != null){
-<<<<<<< HEAD
 						System.out.println("\nBAM! " + destSpot.getPiece().getPieceName() + " was captured by " + mover.getPieceName() + " @ (" + xto + ", " + yto +")");
-=======
 						//System.out.println("\nBAM! " + destSpot.getPiece().getPieceName() + " was captured by " + mover.getPieceName() + " @ (" + xto + ", " + yto +")");
-						destSpot.piece.Dead();
->>>>>>> 9cc302bc9e42e3549ff5f8d507764243aee9a291
 					}
 					destSpot.setPiece(mover);
 					currSpot.setPiece(null);
