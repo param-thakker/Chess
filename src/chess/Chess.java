@@ -42,7 +42,7 @@ public class Chess {
 					boolean checkmate=isCheckMate(0);
 					if (checkmate) {
 						System.out.println("Checkmate");
-						System.out.println("Black Wins");
+						System.out.println("Black wins");
 						System.exit(1);
 					}
 					else {
@@ -59,7 +59,7 @@ public class Chess {
 					boolean checkmate=isCheckMate(1);
 					if (checkmate) {
 						System.out.println("Checkmate");
-						System.out.println("White Wins");
+						System.out.println("White wins");
 						System.exit(1);
 					}
 					else {
@@ -136,7 +136,7 @@ public class Chess {
 			Spot destSpot = chessBoard.grid[xto][yto];
 
 			if (currSpot.isEmpty()){
-				System.out.println("Illegal move, try again (current spot is empty)");
+				System.out.println("Illegal move, try again");
 			}else if(currSpot.getPiece().getColor() == currColor && currSpot.getPiece().validMoveWithoutCheck(chessBoard, currSpot, destSpot) && chessBoard.isPathEmpty(currSpot, destSpot)) {
 				boolean pawnPromo = false;
 				boolean enPassant = false;
@@ -166,9 +166,9 @@ public class Chess {
 				}
 				//remove piece from old Spot
 			
-				System.out.println("selected piece and color: " + currSpot.getPiece().getPieceName() + " " + currSpot.getPiece().getColor());
+				//System.out.println("selected piece and color: " + currSpot.getPiece().getPieceName() + " " + currSpot.getPiece().getColor());
 				ChessPiece mover = currSpot.getPiece();
-				System.out.println("mover's previous y change: " + mover.getPreviousChange());
+				//System.out.println("mover's previous y change: " + mover.getPreviousChange());
 				ChessPiece destPiece=destSpot.getPiece();
 
 				if (mover.getPieceName().substring(1).equals("p")) { //pawn promo potential or enpassant
@@ -177,11 +177,16 @@ public class Chess {
 						if (currSpot.getYCoordinate() == 1){
 							char toPromo = tokens.length>2 ? tokens[2].charAt(0) : 'Q';
 							pawnPromotion(currSpot, destSpot, toPromo, 0);
-							System.out.println("white's pawn has been promoted to " + toPromo);
+							//System.out.println("white's pawn has been promoted to " + toPromo);
 							pawnPromo = true;
 						}else if (currPawn.getEnPassant()){
 							enPassant = true;
+<<<<<<< HEAD
 							System.out.println("\nBAM! " + chessBoard.grid[xto][yto+1].getPiece().getPieceName() + " was enPassant captured by " + mover.getPieceName() + " @ (" + xto + ", " + (yto-1) +")");
+=======
+							//System.out.println("\nBAM! " + chessBoard.grid[xto][yto+1].getPiece().getPieceName() + " was enPassant captured by " + mover.getPieceName() + " @ (" + xto + ", " + (yto-1) +")");
+							chessBoard.grid[xto][yto+1].piece.Dead();
+>>>>>>> 9cc302bc9e42e3549ff5f8d507764243aee9a291
 							chessBoard.grid[xto][yto+1].setPiece(null);
 							destSpot.setPiece(mover);
 						}
@@ -189,45 +194,56 @@ public class Chess {
 						if (currSpot.getYCoordinate() == 6){
 							char toPromo = tokens.length>2 ? tokens[2].charAt(0) : 'Q';
 							pawnPromotion(currSpot, destSpot, tokens[2].charAt(0), 1);
-							System.out.println("black's pawn has been promoted to " + toPromo);
+							//System.out.println("black's pawn has been promoted to " + toPromo);
 							pawnPromo = true;
 						}else if (currPawn.getEnPassant()){
 							enPassant = true;
+<<<<<<< HEAD
 							System.out.println("\nBAM! " +chessBoard.grid[xto][yto-1].getPiece().getPieceName() + " was enPassant captured by " + mover.getPieceName() + " @ (" + xto + ", " + (yto+1) +")");
+=======
+							//System.out.println("\nBAM! " +chessBoard.grid[xto][yto-1].getPiece().getPieceName() + " was enPassant captured by " + mover.getPieceName() + " @ (" + xto + ", " + (yto+1) +")");
+							chessBoard.grid[xto][yto-1].piece.Dead();
+>>>>>>> 9cc302bc9e42e3549ff5f8d507764243aee9a291
 							chessBoard.grid[xto][yto-1].setPiece(null);
 							destSpot.setPiece(mover);
 						}
 					}
 				}
 
-				if (!pawnPromo && !enPassant){
+				if (!pawnPromo && !enPassant) {
 					//check new Spot for enemy Piece, if so then remove
 					if (destSpot.getPiece() != null){
+<<<<<<< HEAD
 						System.out.println("\nBAM! " + destSpot.getPiece().getPieceName() + " was captured by " + mover.getPieceName() + " @ (" + xto + ", " + yto +")");
+=======
+						//System.out.println("\nBAM! " + destSpot.getPiece().getPieceName() + " was captured by " + mover.getPieceName() + " @ (" + xto + ", " + yto +")");
+						destSpot.piece.Dead();
+>>>>>>> 9cc302bc9e42e3549ff5f8d507764243aee9a291
 					}
 					destSpot.setPiece(mover);
-					System.out.println("moved piece has previous y change of " + destSpot.getPiece().getPreviousChange());
+					currSpot.setPiece(null);
+					//System.out.println("moved piece has previous y change of " + destSpot.getPiece().getPreviousChange());
 					if (whiteTurn && isKingInCheck(0,findKingPosition(0))) {
-						System.out.println("Illegal Move, King is/will be in check");
+						System.out.println("Illegal move, try again");
 						currSpot.setPiece(mover);
 						destSpot.setPiece(destPiece);
 						return;
 					}
 					else if (!whiteTurn && isKingInCheck(1,findKingPosition(1))) {
-						System.out.println("Illegal Move, King is/will be in check");
+						System.out.println("Illegal move, try again");
 						currSpot.setPiece(mover);
 						destSpot.setPiece(destPiece);
 						return;
 					}
 				}
-				currSpot.setPiece(null);
+				
 
 				chessBoard.drawBoard();
 				whiteTurn = whiteTurn ? false : true; //switch colors
 			} else {
-				System.out.println("selected piece and color: " + currSpot.getPiece().getPieceName() + " " + (currSpot.getPiece().getColor() == 0 ? "white" : "black"));
-				System.out.println("attempted move: " + currSpot.getXCoordinate() + "," + currSpot.getYCoordinate() + " to " + destSpot.getXCoordinate() + "," + destSpot.getYCoordinate());
-				System.out.println("Illegal move, try again (illegal move)");
+			    //System.out.println("selected piece and color: " + currSpot.getPiece().getPieceName() + " " + (currSpot.getPiece().getColor() == 0 ? "white" : "black"));
+				//System.out.println("attempted move: " + currSpot.getXCoordinate() + "," + currSpot.getYCoordinate() + " to " + destSpot.getXCoordinate() + "," + destSpot.getYCoordinate());
+				System.out.println("Illegal move, try again");
 				
 			}
 			if (tokens.length>2 && tokens[2].equals("draw?")) {
@@ -375,13 +391,14 @@ public class Chess {
 							Spot newPosition=chessBoard.grid[b][a];
 							ChessPiece newPositionPiece=newPosition.getPiece();
 							ChessPiece current=chessBoard.grid[j][i].getPiece();
-							if (chessBoard.grid[j][i].getPiece().validMoveWithoutCheck(chessBoard, chessBoard.grid[j][i], newPosition) ) {
+							if (chessBoard.grid[j][i].getPiece().validMoveWithoutCheck(chessBoard, chessBoard.grid[j][i], newPosition) && chessBoard.isPathEmpty(chessBoard.grid[j][i], newPosition)) {
 								
 								
 								newPosition.setPiece(current);
 								chessBoard.grid[j][i].setPiece(null);
 								if (!isKingInCheck(color,findKingPosition(color))) {
-									chessBoard.grid[j][i].setPiece(current);
+									System.out.println("The piece is " + current.getPieceName() + " and move is " + newPosition.getXCoordinate() + "," + newPosition.getYCoordinate());
+;									chessBoard.grid[j][i].setPiece(current);
 									newPosition.setPiece(newPositionPiece);
 									return true;
 								}
