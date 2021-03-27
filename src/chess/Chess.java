@@ -133,17 +133,18 @@ public class Chess {
 				System.out.println("selected piece and color: " + currSpot.getPiece().getPieceName() + " " + currSpot.getPiece().getColor());
 				ChessPiece mover = currSpot.getPiece();
 
-				if (mover.getPieceName().substring(1).equals("p")){ //pawn promo
-					pawnPromo = true;
+				if (mover.getPieceName().substring(1).equals("p")){ //pawn promo potential
 					if (whiteTurn){
 						if (currSpot.getYCoordinate() == 1){
 							pawnPromotion(currSpot, destSpot, tokens[2].charAt(0), 0);
 							System.out.println("white's pawn has been promoted to " + tokens[2]);
+							pawnPromo = true;
 						}
 					}else{
 						if (currSpot.getYCoordinate() == 6){
 							pawnPromotion(currSpot, destSpot, tokens[2].charAt(0), 1);
 							System.out.println("black's pawn has been promoted to " + tokens[2]);
+							pawnPromo = true;
 						}
 					}
 				}
