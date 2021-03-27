@@ -147,29 +147,23 @@ public class Chess {
 
 
 				if (mover.getPieceName().substring(1).equals("p")) { //pawn promo potential
-
-				
 					if (whiteTurn){
 						if (currSpot.getYCoordinate() == 1){
-							pawnPromotion(currSpot, destSpot, tokens[2].charAt(0), 0);
-							System.out.println("white's pawn has been promoted to " + tokens[2]);
+							char toPromo = tokens.length>2 ? tokens[2].charAt(0) : 'Q';
+							pawnPromotion(currSpot, destSpot, toPromo, 0);
+							System.out.println("white's pawn has been promoted to " + toPromo);
 							pawnPromo = true;
 						}
 					}else{
 						if (currSpot.getYCoordinate() == 6){
+							char toPromo = tokens.length>2 ? tokens[2].charAt(0) : 'Q';
 							pawnPromotion(currSpot, destSpot, tokens[2].charAt(0), 1);
-							System.out.println("black's pawn has been promoted to " + tokens[2]);
+							System.out.println("black's pawn has been promoted to " + toPromo);
 							pawnPromo = true;
 						}
 					}
 				}
-				currSpot.setPiece(null);
 
-				//check new Spot for enemy Piece, if so then remove
-				if (destSpot.getPiece() != null && !pawnPromo){
-					destSpot.piece.Dead();
-					System.out.println("\nBAM! " + destSpot.getPiece().getPieceName() + " was captured by " + mover.getPieceName() + " @ (" + xto + ", " + yto +")");
-				}
 				if (!pawnPromo){
 					destSpot.setPiece(mover);
 					if (whiteTurn && isKingInCheck(0,findKingPosition(0))) {
@@ -184,6 +178,13 @@ public class Chess {
 						destSpot.setPiece(destPiece);
 						return;
 					}
+				}
+				currSpot.setPiece(null);
+
+				//check new Spot for enemy Piece, if so then remove
+				if (destSpot.getPiece() != null && !pawnPromo){
+					destSpot.piece.Dead();
+					System.out.println("\nBAM! " + destSpot.getPiece().getPieceName() + " was captured by " + mover.getPieceName() + " @ (" + xto + ", " + yto +")");
 				}
 				chessBoard.drawBoard();
 				whiteTurn = whiteTurn ? false : true; //switch colors
