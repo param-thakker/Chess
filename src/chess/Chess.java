@@ -173,11 +173,11 @@ public class Chess {
 
 				if (mover.getPieceName().substring(1).equals("p")) { //pawn promo potential or enpassant
 					Pawn currPawn = (Pawn) mover;
-					if (whiteTurn){
+					if (whiteTurn) {
 						if (currSpot.getYCoordinate() == 1){
 							char toPromo = tokens.length>2 ? tokens[2].charAt(0) : 'Q';
 							pawnPromotion(currSpot, destSpot, toPromo, 0);
-							System.out.println("white's pawn has been promoted to " + toPromo);
+						//	System.out.println("white's pawn has been promoted to " + toPromo);
 							pawnPromo = true;
 						}else if (currPawn.getEnPassant()){
 							enPassant = true;
@@ -189,7 +189,7 @@ public class Chess {
 						if (currSpot.getYCoordinate() == 6){
 							char toPromo = tokens.length>2 ? tokens[2].charAt(0) : 'Q';
 							pawnPromotion(currSpot, destSpot, toPromo, 1);
-							System.out.println("black's pawn has been promoted to " + toPromo);
+						//	System.out.println("black's pawn has been promoted to " + toPromo);
 							pawnPromo = true;
 						}else if (currPawn.getEnPassant()){
 							enPassant = true;
