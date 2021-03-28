@@ -177,7 +177,7 @@ public class Chess {
 						if (currSpot.getYCoordinate() == 1){
 							char toPromo = tokens.length>2 ? tokens[2].charAt(0) : 'Q';
 							pawnPromotion(currSpot, destSpot, toPromo, 0);
-							//System.out.println("white's pawn has been promoted to " + toPromo);
+							System.out.println("white's pawn has been promoted to " + toPromo);
 							pawnPromo = true;
 						}else if (currPawn.getEnPassant()){
 							enPassant = true;
@@ -188,8 +188,8 @@ public class Chess {
 					}else{
 						if (currSpot.getYCoordinate() == 6){
 							char toPromo = tokens.length>2 ? tokens[2].charAt(0) : 'Q';
-							pawnPromotion(currSpot, destSpot, tokens[2].charAt(0), 1);
-							//System.out.println("black's pawn has been promoted to " + toPromo);
+							pawnPromotion(currSpot, destSpot, toPromo, 1);
+							System.out.println("black's pawn has been promoted to " + toPromo);
 							pawnPromo = true;
 						}else if (currPawn.getEnPassant()){
 							enPassant = true;
@@ -246,7 +246,7 @@ public class Chess {
 	 * The method does not have a return type.
 	 */
 	public static void pawnPromotion(Spot curr, Spot dest, char promo, int color){
-		switch (promo){
+		switch (Character.toUpperCase(promo)){
 			case 'R':
 				dest.setPiece(new Rook(color));
 				break;
