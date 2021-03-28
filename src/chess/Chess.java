@@ -222,7 +222,6 @@ public class Chess {
 					}
 					
 				}
-				destSpot.setPiece(mover);
 				currSpot.setPiece(null);
 				
 
@@ -249,17 +248,21 @@ public class Chess {
 	 * The method does not have a return type.
 	 */
 	public static void pawnPromotion(Spot curr, Spot dest, char promo, int color){
-		switch (Character.toUpperCase(promo)){
-			case 'R':
+		switch (Character.toLowerCase(promo)){
+			case 'r':
+				//System.out.println("ROOK");
 				dest.setPiece(new Rook(color));
 				break;
-			case 'N':
+			case 'n':
+				//System.out.println("KNIGHT");
 				dest.setPiece(new Knight(color));
 				break;
-			case 'B':
+			case 'b':
+				//System.out.println("BISHOP");
 				dest.setPiece(new Bishop(color));
 				break;
 			default: //dont have to do case Q because default covers that
+				//System.out.println("QUEEN");
 				dest.setPiece(new Queen(color));
 		}
 	}
