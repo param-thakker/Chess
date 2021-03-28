@@ -220,7 +220,10 @@ public class Chess {
 						destSpot.setPiece(destPiece);
 						return;
 					}
+					
 				}
+				destSpot.setPiece(mover);
+				currSpot.setPiece(null);
 				
 
 				chessBoard.drawBoard();
